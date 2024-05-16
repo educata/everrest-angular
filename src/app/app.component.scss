@@ -1,0 +1,58 @@
+@use "./styles/mixins" as *;
+
+.sidenav-container {
+  height: 100%;
+
+  .sidenav {
+    width: 200px;
+  }
+
+  .mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .mat-toolbar {
+    span.fill {
+      flex-grow: 1;
+    }
+  }
+
+  a {
+    &.title {
+      font-size: 20px;
+    }
+
+    div {
+      &.start {
+        @include flex(start, center, 10px);
+      }
+
+      &.center {
+        @include flex(center, center, 10px);
+      }
+
+      img {
+        width: 32px;
+        height: 32px;
+      }
+
+      span {
+        @include flex;
+      }
+    }
+  }
+
+  main {
+    width: 100%;
+    max-width: 1400px;
+    padding: 16px;
+    box-sizing: border-box;
+    margin: auto;
+
+    h1 {
+      font-size: 30px;
+    }
+  }
+}
