@@ -1,0 +1,21 @@
+@use "../../styles/mixins" as *;
+
+article {
+  @include flex(center, center, 10px, column);
+  padding: 1rem;
+  margin-top: 1rem;
+  max-width: 500px;
+  border-radius: 3px;
+
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  text-align: center;
+}

@@ -6,4 +6,13 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--mat-paginator-container-background-color);
+}
+
+section.content-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+  place-items: center;
 }

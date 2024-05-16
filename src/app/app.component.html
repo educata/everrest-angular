@@ -37,7 +37,7 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       }
-      <a mat-button class="title">{{ title }}</a>
+      <a mat-button class="title" routerLink="/">{{ title }}</a>
       <span class="fill"></span>
       @if (!(isHandset$ | async)) {
         @for (item of navigations; track item.title) {
