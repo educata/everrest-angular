@@ -12,7 +12,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { BreakpointService } from '@app-shared/services';
+import { BreakpointService, NavigationService } from '@app-shared/services';
 import { NAVIGATIONS, TITLE } from '@app-shared/consts';
 import { filter, map } from 'rxjs';
 
@@ -37,11 +37,12 @@ export class AppComponent {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly breakpointService = inject(BreakpointService);
+  private readonly navigationService = inject(NavigationService);
 
-  readonly navigations = NAVIGATIONS;
   readonly title = TITLE;
 
   readonly isHandset$ = this.breakpointService.isHandset$;
+  readonly navigation$ = this.navigationService.navigation$;
   readonly pageTitle$ = this.router.events.pipe(
     filter((event) => event instanceof NavigationEnd),
     map(() => {
