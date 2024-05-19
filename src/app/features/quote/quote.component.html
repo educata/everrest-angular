@@ -1,0 +1,78 @@
+<section class="content-wrapper">
+  @if (firstLoad$ | async) {
+    <mat-paginator
+      [pageSize]="conifg.limit"
+      [length]="conifg.total"
+      (page)="loadQuote($event.pageIndex + 1)"
+    ></mat-paginator>
+  } @else {
+    <mat-spinner></mat-spinner>
+  }
+
+  @if (quotes$ | async; as quotes) {
+    <table mat-table [dataSource]="quotes.quotes" class="mat-elevation-z2">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef>Author</th>
+        <td mat-cell *matCellDef="let element">{{ element.author }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="quote">
+        <th mat-header-cell *matHeaderCellDef>Quote</th>
+        <td mat-cell *matCellDef="let element">{{ element.quote }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="search">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            mat-button
+            color="primary"
+            target="_blank"
+            href="https://www.google.com/search?q={{ encodeUrl(element) }}"
+            >Search</a
+          >
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  }
+  <article class="mat-elevation-z2">
+    <h3>Random quote</h3>
+    <button
+      mat-button
+      color="warn"
+      [disabled]="!(randomQuote$ | async)"
+      (click)="updateRandomQuote()"
+    >
+      Update
+    </button>
+    <div>
+      @if (randomQuote$ | async; as randomQuote) {
+        <h4>{{ randomQuote.type }} / {{ randomQuote.author }}</h4>
+        <h5>{{ randomQuote._id }}</h5>
+        <p>{{ randomQuote.quote }}</p>
+        <a
+          mat-button
+          color="primary"
+          target="_blank"
+          href="https://www.google.com/search?q={{ encodeUrl(randomQuote) }}"
+          >Search</a
+        >
+      } @else {
+        <mat-spinner></mat-spinner>
+      }
+    </div>
+  </article>
+</section>

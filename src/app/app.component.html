@@ -8,20 +8,22 @@
   >
     <mat-toolbar color="primary">Navigation</mat-toolbar>
     <mat-nav-list>
-      @for (item of navigations; track item.title) {
-        <a mat-list-item [routerLink]="item.path">
-          {{ item.title }}
-        </a>
-        <a
-          mat-list-item
-          target="_blank"
-          href="https://github.com/educata/everrest-angular"
-        >
-          <div class="start">
-            <img src="../assets/icons/github.svg" alt="GitHub icon" />
-            <span>GitHub</span>
-          </div>
-        </a>
+      @if (navigation$ | async; as navigations) {
+        @for (item of navigations; track item.title) {
+          <a mat-list-item [routerLink]="item.path">
+            {{ item.title }}
+          </a>
+          <a
+            mat-list-item
+            target="_blank"
+            href="https://github.com/educata/everrest-angular"
+          >
+            <div class="start">
+              <img src="../assets/icons/github.svg" alt="GitHub icon" />
+              <span>GitHub</span>
+            </div>
+          </a>
+        }
       }
     </mat-nav-list>
   </mat-sidenav>
@@ -37,13 +39,15 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       }
-      <a mat-button class="title">{{ title }}</a>
+      <a mat-button class="title" routerLink="/">{{ title }}</a>
       <span class="fill"></span>
       @if (!(isHandset$ | async)) {
-        @for (item of navigations; track item.title) {
-          <a mat-button [routerLink]="item.path">
-            {{ item.title }}
-          </a>
+        @if (navigation$ | async; as navigations) {
+          @for (item of navigations; track item.title) {
+            <a mat-button [routerLink]="item.path">
+              {{ item.title }}
+            </a>
+          }
         }
         <a
           mat-button

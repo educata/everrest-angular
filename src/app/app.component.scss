@@ -1,6 +1,7 @@
 @use "./styles/mixins" as *;
 
 .sidenav-container {
+  background-color: var(--mat-paginator-container-background-color);
   height: 100%;
 
   .sidenav {

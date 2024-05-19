@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { BreakpointService } from '@app-shared/services';
+import { BreakpointService, NavigationService } from '@app-shared/services';
 import { NAVIGATIONS, TITLE } from '@app-shared/consts';
 import { filter, map } from 'rxjs';
 
@@ -31,16 +31,18 @@ import { filter, map } from 'rxjs';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly breakpointService = inject(BreakpointService);
+  private readonly navigationService = inject(NavigationService);
 
-  readonly navigations = NAVIGATIONS;
   readonly title = TITLE;
 
   readonly isHandset$ = this.breakpointService.isHandset$;
+  readonly navigation$ = this.navigationService.navigation$;
   readonly pageTitle$ = this.router.events.pipe(
     filter((event) => event instanceof NavigationEnd),
     map(() => {
