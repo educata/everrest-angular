@@ -12,13 +12,12 @@ export class NavigationService {
   readonly navigation$ = this.authService.user$.pipe(
     map((user) => {
       const isUserAuth = Boolean(user);
-      const navigation = NAVIGATIONS.filter((nav) => {
+      return NAVIGATIONS.filter((nav) => {
         const defaultPaths = !nav.hideAfterAuth && !nav.auth;
         const beforeAuthPaths = !isUserAuth && !nav.auth && nav.hideAfterAuth;
         const afterAuthPaths = isUserAuth && nav.auth && !nav.hideAfterAuth;
         return defaultPaths || beforeAuthPaths || afterAuthPaths;
       });
-      return navigation;
     }),
   );
 }
