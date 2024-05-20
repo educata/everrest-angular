@@ -3,18 +3,33 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./features/home/home.component'),
     title: 'Home',
+    loadComponent: () => import('./features/home/home.component'),
+  },
+  {
+    path: 'auth',
+    title: 'Auth',
+    loadComponent: () => import('./features/auth/auth.component'),
+  },
+  {
+    path: 'products',
+    title: 'Products',
+    loadComponent: () => import('./features/products/products.component'),
   },
   {
     path: 'quote',
-    loadComponent: () => import('./features/quote/quote.component'),
     title: 'Quote',
+    loadComponent: () => import('./features/quote/quote.component'),
+  },
+  {
+    path: 'qr',
+    title: 'QR',
+    loadComponent: () => import('./features/qr/qr.component'),
   },
   {
     path: '404',
-    loadComponent: () => import('./features/notfound/notfound.component'),
     title: 'Not found',
+    loadComponent: () => import('./features/notfound/notfound.component'),
   },
   {
     path: '**',

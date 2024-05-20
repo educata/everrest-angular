@@ -1,0 +1,11 @@
+@use "../../styles/mixins" as *;
+
+section.mt-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+
+  div {
+    padding-top: 0.69rem;
+  }
+}

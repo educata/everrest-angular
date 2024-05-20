@@ -6,7 +6,7 @@
       (page)="loadQuote($event.pageIndex + 1)"
     ></mat-paginator>
   } @else {
-    <mat-spinner></mat-spinner>
+    <ec-loading></ec-loading>
   }
 
   @if (quotes$ | async; as quotes) {
@@ -71,7 +71,7 @@
           >Search</a
         >
       } @else {
-        <mat-spinner></mat-spinner>
+        <ec-loading></ec-loading>
       }
     </div>
   </article>

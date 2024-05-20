@@ -8,6 +8,18 @@ export const NAVIGATIONS: Navigation[] = [
     hideAfterAuth: false,
   },
   {
+    title: 'Products',
+    path: 'products',
+    auth: false,
+    hideAfterAuth: false,
+  },
+  {
+    title: 'Qr',
+    path: 'qr',
+    auth: false,
+    hideAfterAuth: false,
+  },
+  {
     title: 'Quote',
     path: 'quote',
     auth: false,

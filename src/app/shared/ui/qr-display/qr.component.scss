@@ -1,0 +1,11 @@
+.qr {
+  max-width: 400px;
+
+  img {
+    margin: 1rem 0;
+  }
+
+  p.result {
+    word-break: break-all;
+  }
+}

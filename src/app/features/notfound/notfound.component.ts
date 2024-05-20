@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingComponent } from '@app-shared/ui';
 
 @Component({
   selector: 'ec-notfound',
   standalone: true,
-  imports: [MatProgressSpinnerModule],
+  imports: [LoadingComponent],
   templateUrl: './notfound.component.html',
   styleUrl: './notfound.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

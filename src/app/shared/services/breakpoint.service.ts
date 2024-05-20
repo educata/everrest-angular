@@ -9,7 +9,7 @@ export class BreakpointService {
   private readonly breakpointObserver = inject(BreakpointObserver);
 
   readonly isHandset$ = this.breakpointObserver
-    .observe(Breakpoints.Handset)
+    .observe([Breakpoints.Handset, '(max-width: 900px)'])
     .pipe(
       map((result) => result.matches),
       shareReplay(),

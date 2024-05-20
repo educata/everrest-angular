@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { QuoteService } from '@app-shared/services';
-import { BehaviorSubject, Subject, skip, take, tap } from 'rxjs';
+import { BehaviorSubject, skip, take, tap } from 'rxjs';
 import { Quote, Quotes } from '@app-shared/interfaces';
 import { MatButtonModule } from '@angular/material/button';
+import { LoadingComponent } from '@app-shared/ui';
 
 @Component({
   selector: 'ec-quote',
@@ -15,8 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     MatPaginatorModule,
     MatTableModule,
-    MatProgressSpinnerModule,
     MatButtonModule,
+    LoadingComponent,
     AsyncPipe,
   ],
   templateUrl: './quote.component.html',
