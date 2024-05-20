@@ -1,4 +1,17 @@
 <section class="content-wrapper">
+  @if (productBrands$ | async; as brands) {
+    <mat-button-toggle-group name="brand">
+      @for (brand of brands; track brand) {
+        <mat-button-toggle
+          [value]="brand"
+          (click)="navigateTo('/product/brand/' + brand)"
+        >
+          {{ brand }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  }
+
   @if (firstLoad$ | async) {
     <mat-paginator
       showFirstLastButtons

@@ -31,7 +31,13 @@
       @if (user$ | async) {
         <button mat-button color="warn">Add to cart</button>
       }
-      <a [routerLink]="['id', product._id]" mat-button color="primary">
+      <a
+        routerLink="/product{{ standaloneView ? '' : 's' }}/id/{{
+          product._id
+        }}"
+        mat-button
+        color="primary"
+      >
         Preview
       </a>
     </mat-card-actions>

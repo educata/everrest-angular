@@ -19,11 +19,21 @@ export const routes: Routes = [
       {
         path: 'id/:id',
         loadComponent: () =>
-          import(
-            './features/products/product-preview/product-preview.component'
-          ),
+          import('./shared/ui/product-preview/product-preview.component'),
       },
     ],
+  },
+  {
+    path: 'product/brand/:brand',
+    title: 'Product by brands',
+    loadComponent: () =>
+      import('./features/product-brand/product-brand.component'),
+  },
+  {
+    path: 'product/id/:id',
+    title: 'Single product',
+    loadComponent: () =>
+      import('./shared/ui/product-preview/product-preview.component'),
   },
   {
     path: 'quote',

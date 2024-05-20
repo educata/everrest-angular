@@ -5,22 +5,25 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { StorageKeys } from '@app-shared/enums';
 import { Product, Products } from '@app-shared/interfaces';
 import { ProductService } from '@app-shared/services';
-import { LoadingComponent } from '@app-shared/ui';
+import { LoadingComponent, ProductCardComponent } from '@app-shared/ui';
 import { BehaviorSubject, filter, skip, take, tap } from 'rxjs';
-import { ProductCardComponent } from './product-card/product-card.component';
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
+  RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'ec-products',
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
     MatPaginatorModule,
+    MatButtonToggleModule,
     LoadingComponent,
     ProductCardComponent,
     NgClass,
@@ -42,6 +45,8 @@ export default class ProductsComponent {
 
   readonly #splitScreen$ = new BehaviorSubject<boolean>(false);
   readonly splitScreen$ = this.#splitScreen$.asObservable();
+
+  readonly productBrands$ = this.productService.getProductBrands();
 
   readonly cache = new Map<number, Product[]>();
 
@@ -123,5 +128,9 @@ export default class ProductsComponent {
         }),
       )
       .subscribe();
+  }
+
+  navigateTo(url: string) {
+    this.router.navigateByUrl(url);
   }
 }

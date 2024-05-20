@@ -36,4 +36,32 @@ export class ProductService {
       }),
     );
   }
+
+  getProductBrands() {
+    return this.http.get<string[]>(`${this.baseUrl}/brands`);
+  }
+
+  getProductsByBrands(
+    brand: string,
+    pageIndex = API_PAGINATION_CONFIG.PAGE_INDEX,
+    pageSize = API_PAGINATION_CONFIG.PAGE_SIZE,
+  ) {
+    return this.http
+      .get<Products>(
+        `${this.baseUrl}/brand/${brand}?${this.paginationService.getPaginationString(pageIndex, pageSize)}`,
+      )
+      .pipe(
+        catchError(() => {
+          this.sweetAletService.toast('Brand not found', 'error', 'red');
+          this.router.navigateByUrl('/products');
+          return EMPTY;
+        }),
+      );
+  }
+
+  searchProductByKeywords(keywords: string) {
+    return this.http.get<Products>(
+      `${this.baseUrl}/saerch?keywords=${keywords}`,
+    );
+  }
 }

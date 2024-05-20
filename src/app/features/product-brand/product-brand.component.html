@@ -1,0 +1,35 @@
+<section class="content-wrapper">
+  @if (productBrands$ | async; as brands) {
+    <mat-button-toggle-group [formControl]="currentBrand">
+      @for (brand of brands; track brand) {
+        <mat-button-toggle
+          [value]="brand"
+          (click)="navigateTo('/product/brand/' + brand)"
+        >
+          {{ brand }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  }
+
+  @if (products$ | async; as products) {
+    <mat-paginator
+      showFirstLastButtons
+      [pageSize]="products.limit"
+      [length]="products.total"
+      [pageIndex]="products.page - 1"
+      (page)="loadProducts(currentBrand.value, $event.pageIndex + 1)"
+    ></mat-paginator>
+
+    <section class="products-wrapper">
+      <aside class="products">
+        @for (product of products.products; track product._id) {
+          <ec-product-card
+            [product]="product"
+            [standaloneView]="true"
+          ></ec-product-card>
+        }
+      </aside>
+    </section>
+  }
+</section>

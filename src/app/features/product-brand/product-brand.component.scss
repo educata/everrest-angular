@@ -1,0 +1,8 @@
+@use "../../styles/mixins" as *;
+
+.products-wrapper {
+  .products {
+    @include flex(center, start, 1rem);
+    flex-wrap: wrap;
+  }
+}

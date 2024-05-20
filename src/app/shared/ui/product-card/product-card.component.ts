@@ -30,6 +30,7 @@ import { AsyncPipe } from '@angular/common';
 })
 export class ProductCardComponent {
   @Input() product: Product | null = null;
+  @Input() standaloneView = false;
 
   private readonly auth = inject(AuthService);
 

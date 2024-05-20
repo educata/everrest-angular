@@ -11,6 +11,8 @@ import { CarouselComponent, LoadingComponent } from '@app-shared/ui';
 import { MatListModule } from '@angular/material/list';
 import { BehaviorSubject, filter, tap } from 'rxjs';
 import { CapitalisePipe } from '@app-shared/pipes';
+import { Title } from '@angular/platform-browser';
+import { TITLE, TITLE_SEPARATOR } from '@app-shared/consts';
 
 @Component({
   selector: 'ec-product-preview',
@@ -31,6 +33,7 @@ import { CapitalisePipe } from '@app-shared/pipes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ProductPreviewComponent {
+  private readonly title = inject(Title);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly auth = inject(AuthService);
@@ -62,6 +65,7 @@ export default class ProductPreviewComponent {
       .getProductById(this.activatedRoute.snapshot.params['id'])
       .subscribe((product) => {
         this.product$.next(product);
+        this.title.setTitle(`${TITLE} ${TITLE_SEPARATOR} ${product.title}`);
       });
   }
 }

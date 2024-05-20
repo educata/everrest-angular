@@ -13,7 +13,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { BreakpointService, NavigationService } from '@app-shared/services';
-import { NAVIGATIONS, TITLE } from '@app-shared/consts';
+import { TITLE } from '@app-shared/consts';
 import { filter, map } from 'rxjs';
 
 @Component({
