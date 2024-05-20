@@ -15,6 +15,15 @@ export const routes: Routes = [
     path: 'products',
     title: 'Products',
     loadComponent: () => import('./features/products/products.component'),
+    loadChildren: () => [
+      {
+        path: 'id/:id',
+        loadComponent: () =>
+          import(
+            './features/products/product-preview/product-preview.component'
+          ),
+      },
+    ],
   },
   {
     path: 'quote',

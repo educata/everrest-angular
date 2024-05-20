@@ -8,6 +8,7 @@ import { BehaviorSubject, skip, take, tap } from 'rxjs';
 import { Quote, Quotes } from '@app-shared/interfaces';
 import { MatButtonModule } from '@angular/material/button';
 import { LoadingComponent } from '@app-shared/ui';
+import { StorageKeys } from '@app-shared/enums';
 
 @Component({
   selector: 'ec-quote',
@@ -56,7 +57,7 @@ export default class QuoteComponent {
   };
 
   constructor() {
-    const quotesCache = localStorage.getItem('quotes-cache');
+    const quotesCache = localStorage.getItem(StorageKeys.Quotes);
 
     if (quotesCache) {
       const result = new Map<number, Quote[]>(JSON.parse(quotesCache));
@@ -99,7 +100,10 @@ export default class QuoteComponent {
         tap((response) => {
           this.quotes = response;
           this.cache.set(response.page, response.quotes);
-          localStorage.setItem('quotes-cache', JSON.stringify([...this.cache]));
+          localStorage.setItem(
+            StorageKeys.Quotes,
+            JSON.stringify([...this.cache]),
+          );
         }),
       )
       .subscribe();

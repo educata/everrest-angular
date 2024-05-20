@@ -1,0 +1,25 @@
+.content-wrapper {
+  position: relative;
+  gap: 10px;
+
+  .product {
+    max-width: 400px;
+
+    h3.price {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.5rem;
+
+      span {
+        &.line-thought {
+          text-decoration: line-through;
+          color: red;
+        }
+        &.current {
+          color: green;
+        }
+      }
+    }
+  }
+}

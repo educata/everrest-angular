@@ -1,0 +1,41 @@
+@if (product) {
+  <mat-card class="product">
+    <mat-card-header>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ product.category.name }} / {{ product.brand }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      alt="{{ product.title }} image"
+      [src]="product.thumbnail"
+    />
+    <mat-card-content>
+      <h3>
+        {{ product.description | textShorter }}
+      </h3>
+      <h3 class="price">
+        Price:
+        @if (product.price.discountPercentage === 0) {
+          <span>{{ product.price.current }}</span>
+        } @else {
+          <span class="line-thought">{{ product.price.beforeDiscount }}</span>
+          <mat-icon>arrow_right_alt</mat-icon>
+          <span class="current">{{ product.price.current }}</span>
+        }
+        <span> {{ product.price.currency }} </span>
+      </h3>
+    </mat-card-content>
+    <mat-card-actions>
+      @if (user$ | async) {
+        <button mat-button color="warn">Add to cart</button>
+      }
+      <a [routerLink]="['id', product._id]" mat-button color="primary">
+        Preview
+      </a>
+    </mat-card-actions>
+  </mat-card>
+} @else {
+  <p>Invalid input for QR</p>
+}

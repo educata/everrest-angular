@@ -1,1 +1,26 @@
-<p>products works!</p>
+<section class="content-wrapper">
+  @if (firstLoad$ | async) {
+    <mat-paginator
+      showFirstLastButtons
+      [pageSize]="conifg.limit"
+      [length]="conifg.total"
+      (page)="loadProducts($event.pageIndex + 1)"
+    ></mat-paginator>
+  } @else {
+    <ec-loading></ec-loading>
+  }
+  <section class="products-wrapper" [class.split]="splitScreen$ | async">
+    <aside class="products">
+      @if (products$ | async; as products) {
+        @for (product of products.products; track product._id) {
+          <ec-product-card [product]="product"></ec-product-card>
+        }
+      }
+    </aside>
+    <aside class="preview">
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </aside>
+  </section>
+</section>

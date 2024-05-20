@@ -1,0 +1,30 @@
+@use "../../styles/mixins" as *;
+
+.products-wrapper {
+  &.split {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 400px);
+
+    @media screen and (max-width: 850px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .preview {
+      @media screen and (max-width: 850px) {
+        position: static;
+        grid-column-start: 1;
+        grid-row-start: 1;
+      }
+
+      div {
+        position: sticky;
+        top: 100px;
+      }
+    }
+  }
+  .products {
+    @include flex(center, start, 1rem);
+    flex-wrap: wrap;
+  }
+}

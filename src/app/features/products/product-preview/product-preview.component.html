@@ -1,0 +1,57 @@
+<section class="content-wrapper">
+  <aside>
+    @if (product$ | async; as product) {
+      <mat-card class="product">
+        <mat-card-header>
+          <mat-card-title>{{ product.title }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ product.category.name | capitalise }} /
+            {{ product.brand | capitalise }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <ec-carousel [imageSources]="product.images"></ec-carousel>
+        <mat-card-content>
+          <h3>
+            {{ product.description }}
+          </h3>
+          <h3 class="price">
+            Price:
+            @if (product.price.discountPercentage === 0) {
+              <span>{{ product.price.current }}</span>
+            } @else {
+              <span class="line-thought">{{
+                product.price.beforeDiscount
+              }}</span>
+              <mat-icon>arrow_right_alt</mat-icon>
+              <span class="current">{{ product.price.current }}</span>
+            }
+            <span> {{ product.price.currency }} </span>
+          </h3>
+          <mat-list role="list">
+            <mat-list-item role="listitem">
+              Stock: {{ product.stock }}
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              Rating: {{ product.rating }} / 5
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              Warranty: {{ product.warranty }} month
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              Issue date :
+              {{ product.issueDate | date: "shortDate" }} (MM/DD/YY)
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="warn" (click)="close()">Close</button>
+          @if (user$ | async) {
+            <button mat-button color="primary">Add to cart</button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    } @else {
+      <ec-loading></ec-loading>
+    }
+  </aside>
+</section>

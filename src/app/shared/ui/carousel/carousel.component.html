@@ -1,0 +1,15 @@
+<section class="carousel">
+  <div class="image">
+    @if (currentImage$ | async; as currentImage) {
+      <img [src]="currentImage.image" alt="product image" />
+    }
+  </div>
+  <div class="controls">
+    <button (click)="load(-1)">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button (click)="load(1)">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</section>
