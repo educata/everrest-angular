@@ -43,8 +43,17 @@ export default class ProductsComponent {
 
   readonly firstLoad$ = this.products$.pipe(skip(1), take(1));
 
-  readonly #splitScreen$ = new BehaviorSubject<boolean>(false);
-  readonly splitScreen$ = this.#splitScreen$.asObservable();
+  readonly splitScreen$ = this.router.events.pipe(
+    takeUntilDestroyed(),
+    filter((event) => event instanceof NavigationEnd),
+    tap(() => {
+      let root = this.activatedRoute.snapshot;
+      while (root.firstChild) {
+        root = root.firstChild;
+      }
+      return Boolean(root.params['id']);
+    }),
+  );
 
   readonly productBrands$ = this.productService.getProductBrands();
 
@@ -72,20 +81,6 @@ export default class ProductsComponent {
         this.cache.set(index, item);
       });
     }
-
-    this.router.events
-      .pipe(
-        takeUntilDestroyed(),
-        filter((event) => event instanceof NavigationEnd),
-        tap(() => {
-          let root = this.activatedRoute.snapshot;
-          while (root.firstChild) {
-            root = root.firstChild;
-          }
-          this.#splitScreen$.next(Boolean(root.params['id']));
-        }),
-      )
-      .subscribe();
 
     this.loadProducts(1);
 
