@@ -7,3 +7,4 @@ export * from './qr.service';
 export * from './sweet-alert2.service';
 export * from './product.service';
 export * from './auth.service';
+export * from './jwt.service';

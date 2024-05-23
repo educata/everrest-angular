@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ErrorResponse } from '@app-shared/interfaces';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Injectable({
@@ -29,6 +30,19 @@ export class SweetAlertService {
     Toast.fire({
       icon,
       title,
+    });
+  }
+
+  error(response: ErrorResponse) {
+    Swal.fire({
+      title: response.error,
+      icon: 'error',
+      html: `<ul style="list-style: none; padding: 0">${new Array(
+        response.errorKeys.length,
+      )
+        .fill(0)
+        .map((_, index) => `<li>${response.errorKeys[index]}</li>`)
+        .join('')}</ul>`,
     });
   }
 }

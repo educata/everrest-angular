@@ -1,1 +1,194 @@
-<p>auth works!</p>
+<section class="container">
+  <mat-tab-group
+    dynamicHeight
+    class="mat-elevation-z2"
+    [selectedIndex]="currentIndex"
+    (selectedTabChange)="tabChange($event.index)"
+  >
+    <mat-tab label="Sign in">
+      <form [formGroup]="signIn">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            required
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          @if (getSignInFormError("email")["required"]) {
+            <mat-error><b>Email</b> is required</mat-error>
+          } @else if (getSignInFormError("email")["email"]) {
+            <mat-error>Please write valid <b>Email</b></mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            required
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          @if (getSignInFormError("password")["required"]) {
+            <mat-error><b>Password</b> is required</mat-error>
+          }
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!signIn.valid"
+          (click)="onSignInSubmit()"
+        >
+          Submit
+        </button>
+      </form>
+    </mat-tab>
+    <mat-tab label="Sign up">
+      <form [formGroup]="signUp">
+        <mat-form-field appearance="outline">
+          <mat-label>First name</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            formControlName="firstName"
+            placeholder="Enter your first name"
+          />
+          @if (getSignUpFormError("firstName")["required"]) {
+            <mat-error><b>First name</b> is required</mat-error>
+          } @else if (getSignUpFormError("firstName")["minLength"]) {
+            <mat-error>Name should be at least 2 char</mat-error>
+          } @else if (getSignUpFormError("firstName")["maxLength"]) {
+            <mat-error>Name should be at less than 22 char</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last name</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            formControlName="lastName"
+            placeholder="Enter your Last name"
+          />
+          @if (getSignUpFormError("lastName")["required"]) {
+            <mat-error><b>Last name</b> is required</mat-error>
+          } @else if (getSignUpFormError("lastName")["minLength"]) {
+            <mat-error>Last Name should be at least 2 char</mat-error>
+          } @else if (getSignUpFormError("lastName")["maxLength"]) {
+            <mat-error>Last Name should be at less than 22 char</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Age</mat-label>
+          <input
+            matInput
+            required
+            type="number"
+            formControlName="age"
+            placeholder="Enter your age"
+          />
+          @if (getSignUpFormError("age")["required"]) {
+            <mat-error><b>Age</b> is required</mat-error>
+          } @else if (getSignUpFormError("age")["min"]) {
+            <mat-error>User should be at least 18</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            required
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          @if (getSignUpFormError("email")["required"]) {
+            <mat-error><b>Email</b> is required</mat-error>
+          } @else if (getSignUpFormError("email")["email"]) {
+            <mat-error>Please write valid <b>Email</b></mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            required
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          @if (getSignUpFormError("password")["required"]) {
+            <mat-error><b>Password</b> is required</mat-error>
+          } @else if (getSignUpFormError("password")["minLength"]) {
+            <mat-error>Password should be at least 8 char</mat-error>
+          } @else if (getSignUpFormError("password")["maxLength"]) {
+            <mat-error>Password should be at less than 22 char</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            formControlName="address"
+            placeholder="Enter your address"
+          />
+          @if (getSignUpFormError("address")["required"]) {
+            <mat-error><b>Address</b> is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            formControlName="phone"
+            placeholder="+9955XXXXXXXX"
+          />
+          @if (getSignUpFormError("phone")["required"]) {
+            <mat-error><b>Phone</b> is required</mat-error>
+          } @else if (getSignUpFormError("phone")["pattern"]) {
+            <mat-error>
+              Phone number should be this pattern
+              <b>(+9955XXXXXXXX)</b>
+            </mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Zipcode</mat-label>
+          <input
+            matInput
+            required
+            type="number"
+            formControlName="zipcode"
+            placeholder="Enter your zipcode"
+          />
+          @if (getSignUpFormError("zipcode")["required"]) {
+            <mat-error><b>Zipcode</b> is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Geneder</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="MALE">Male</mat-option>
+            <mat-option value="FEMALE">Female</mat-option>
+            <mat-option value="OTHER">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!signUp.valid"
+          (click)="onSignUpSubmit()"
+        >
+          Submit
+        </button>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</section>
