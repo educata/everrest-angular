@@ -10,8 +10,13 @@
     <mat-nav-list>
       @if (navigation$ | async; as navigations) {
         @for (item of navigations; track item.title) {
-          <a mat-list-item [routerLink]="item.path">
+          <a mat-list-item [routerLink]="item.path" (click)="drawer.close()">
             {{ item.title }}
+          </a>
+        }
+        @if (user$ | async) {
+          <a mat-list-item routerLink="/" (click)="logOut(); drawer.close()">
+            Log out
           </a>
         }
         <a
@@ -48,6 +53,9 @@
               {{ item.title }}
             </a>
           }
+        }
+        @if (user$ | async) {
+          <a mat-button routerLink="/" (click)="logOut()"> Log out </a>
         }
         <a
           mat-button

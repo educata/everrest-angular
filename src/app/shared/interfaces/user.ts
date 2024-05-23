@@ -1,3 +1,5 @@
+import { JwtTimes } from './jwt';
+
 export interface BaseUser {
   firstName: string;
   lastName: string;
@@ -14,7 +16,7 @@ export interface BaseUser {
 export type SignUpUser = Omit<BaseUser, 'password'>;
 export type SignInUser = Pick<BaseUser, 'email' | 'password'>;
 
-export interface User extends SignUpUser {
+export interface User extends SignUpUser, JwtTimes {
   _id: string;
   verified: boolean;
   role: string;

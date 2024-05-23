@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { canActivate, canAuth } from '@app-shared/services';
 
 export const routes: Routes = [
   {
@@ -9,7 +10,20 @@ export const routes: Routes = [
   {
     path: 'auth',
     title: 'Auth',
+    canActivate: [canAuth],
     loadComponent: () => import('./features/auth/auth.component'),
+  },
+  {
+    path: 'verify',
+    title: 'Verify',
+    canActivate: [canActivate],
+    loadComponent: () => import('./features/verify/verify.component'),
+  },
+  {
+    path: 'settings',
+    title: 'Settings',
+    canActivate: [canActivate],
+    loadComponent: () => import('./features/settings/settings.component'),
   },
   {
     path: 'products',

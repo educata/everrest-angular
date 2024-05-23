@@ -36,40 +36,40 @@ export default class AuthComponent {
   private readonly authService = inject(AuthService);
   private readonly alertService = inject(SweetAlertService);
 
-  currentIndex = 1;
+  currentIndex = 0;
 
   readonly signIn = this.fb.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('kdautinishvili@gmail.com', [
+      Validators.required,
+      Validators.email,
+    ]),
+    password: new FormControl('testdev22K!', Validators.required),
   });
 
   readonly signUp = this.fb.group({
-    firstName: new FormControl('John', [
+    firstName: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(22),
     ]),
-    lastName: new FormControl('Doe', [
+    lastName: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(22),
     ]),
     age: new FormControl(19, [Validators.required, Validators.min(18)]),
-    email: new FormControl('lonoxem263@fincainc.com', [
-      Validators.required,
-      Validators.email,
-    ]),
-    password: new FormControl('testtesttest', [
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(22),
     ]),
-    address: new FormControl('test', Validators.required),
-    phone: new FormControl('+995512345678', [
+    address: new FormControl('', Validators.required),
+    phone: new FormControl('', [
       Validators.required,
       Validators.pattern(/\+9955\d{8}$/),
     ]),
-    zipcode: new FormControl('1000', Validators.required),
+    zipcode: new FormControl('', Validators.required),
     gender: new FormControl('MALE', Validators.required),
   });
 
@@ -82,7 +82,30 @@ export default class AuthComponent {
   }
 
   onSignInSubmit() {
-    console.log(this.signIn.value);
+    const { email, password } = this.signIn.value;
+
+    if (!email || !password) {
+      this.alertService.toast('Fill all inputs', 'error', 'red');
+      return;
+    }
+
+    this.authService
+      .signIn({ email, password })
+      .pipe(
+        tap((response) => {
+          this.alertService.toast(
+            'Successfully authorized',
+            'success',
+            'green',
+          );
+          this.authService.handleTokens(response);
+        }),
+        catchError((err) => {
+          this.alertService.error(err);
+          return EMPTY;
+        }),
+      )
+      .subscribe();
   }
 
   onSignUpSubmit() {
@@ -115,7 +138,7 @@ export default class AuthComponent {
     this.signUp.reset({
       age: 1,
       gender: 'MALE',
-      phone: '+9995',
+      phone: '+9955',
     });
   }
 }

@@ -12,9 +12,13 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { BreakpointService, NavigationService } from '@app-shared/services';
+import {
+  AuthService,
+  BreakpointService,
+  NavigationService,
+} from '@app-shared/services';
 import { TITLE } from '@app-shared/consts';
-import { filter, map } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'ec-root',
@@ -36,6 +40,7 @@ import { filter, map } from 'rxjs';
 export class AppComponent {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
   private readonly breakpointService = inject(BreakpointService);
   private readonly navigationService = inject(NavigationService);
 
@@ -43,6 +48,7 @@ export class AppComponent {
 
   readonly isHandset$ = this.breakpointService.isHandset$;
   readonly navigation$ = this.navigationService.navigation$;
+
   readonly pageTitle$ = this.router.events.pipe(
     filter((event) => event instanceof NavigationEnd),
     map(() => {
@@ -55,4 +61,16 @@ export class AppComponent {
       return route.title || '';
     }),
   );
+
+  readonly user$ = this.authService.user$.pipe(
+    tap((user) => {
+      if (user) {
+        this.authService.checkVerify(user);
+      }
+    }),
+  );
+
+  logOut() {
+    this.authService.logOut();
+  }
 }
