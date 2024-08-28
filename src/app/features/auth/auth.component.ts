@@ -39,11 +39,8 @@ export default class AuthComponent {
   currentIndex = 0;
 
   readonly signIn = this.fb.group({
-    email: new FormControl('kdautinishvili@gmail.com', [
-      Validators.required,
-      Validators.email,
-    ]),
-    password: new FormControl('testdev22K!', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
   });
 
   readonly signUp = this.fb.group({

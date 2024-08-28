@@ -6,7 +6,7 @@ import { StorageKeys } from '@app-shared/enums';
 import { Product, Products } from '@app-shared/interfaces';
 import { ProductService } from '@app-shared/services';
 import { LoadingComponent, ProductCardComponent } from '@app-shared/ui';
-import { BehaviorSubject, filter, skip, take, tap } from 'rxjs';
+import { BehaviorSubject, filter, map, skip, take, tap } from 'rxjs';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -46,7 +46,7 @@ export default class ProductsComponent {
   readonly splitScreen$ = this.router.events.pipe(
     takeUntilDestroyed(),
     filter((event) => event instanceof NavigationEnd),
-    tap(() => {
+    map(() => {
       let root = this.activatedRoute.snapshot;
       while (root.firstChild) {
         root = root.firstChild;
